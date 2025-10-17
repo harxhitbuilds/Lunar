@@ -2,18 +2,18 @@
 
 <div align="center">
 
-![Lunar Logo](src/assets/lunar.png)
+![Lunar Logo](src/assets/dashboard.png)
 
 **The Next-Generation Music Streaming Experience**
 
-*Where cutting-edge design meets flawless functionality*
+_Where cutting-edge design meets flawless functionality_
 
 [![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-7.1.7-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.13-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
 
-[🚀 Live Demo](#) • [📖 Documentation](#features) • [🐛 Report Bug](#contributing) • [💡 Request Feature](#contributing)
+[🚀 Live Demo](https://lunar-mocha.vercel.app)
 
 </div>
 
@@ -23,19 +23,19 @@
 
 > **Lunar isn't just another music streaming app—it's a revolution in how users experience music.**
 
-🎭 **Cinema-Quality Animations** - Every interaction feels like magic with Framer Motion  
 📱 **Mobile Perfection** - Responsive design that adapts beautifully to any screen  
 🌓 **Dark Mode Native** - Sleek, modern aesthetic that's easy on the eyes  
 ⚡ **Lightning Fast** - Built with Vite for instant hot reloads and optimized builds  
 🎵 **Immersive Audio** - Advanced playback controls with real-time progress tracking  
 🔍 **Smart Search** - Discover your next favorite song instantly  
-👑 **Admin Excellence** - Comprehensive content management system  
+👑 **Admin Excellence** - Comprehensive content management system
 
 ---
 
 ## 🏗️ **Architecture Excellence**
 
 ### **Modern Tech Stack**
+
 ```bash
 ⚛️  React 19.1.1          # Latest React with concurrent features
 🏎️  Vite 7.1.7            # Next-gen frontend tooling
@@ -47,6 +47,7 @@
 ```
 
 ### **Component Architecture**
+
 ```
 src/
 ├── 🎵 components/           # Reusable UI components
@@ -71,6 +72,7 @@ src/
 ## 🚀 **Features That Wow**
 
 ### 🎵 **Immersive Music Experience**
+
 - **Advanced Audio Player** with real-time progress tracking
 - **Queue Management** with shuffle and repeat modes
 - **Volume Control** with smooth slider interactions
@@ -78,6 +80,7 @@ src/
 - **Cross-device Sync** with Firebase integration
 
 ### 📱 **Responsive Excellence**
+
 - **Mobile-First Design** that scales beautifully
 - **Touch-Optimized Controls** for mobile devices
 - **Floating Action Menu** with smooth animations
@@ -85,6 +88,7 @@ src/
 - **Progressive Enhancement** for all screen sizes
 
 ### 🔍 **Smart Discovery**
+
 - **Real-time Search** with instant results
 - **Featured Content** curated for users
 - **Trending Music** updated dynamically
@@ -92,6 +96,7 @@ src/
 - **Album Exploration** with rich metadata
 
 ### 👑 **Power Admin Suite**
+
 - **Content Management** dashboard
 - **Media Upload** with Firebase storage
 - **User Analytics** and engagement metrics
@@ -99,6 +104,7 @@ src/
 - **Bulk Operations** for efficient management
 
 ### ✨ **Delightful Interactions**
+
 - **Micro-animations** on every interaction
 - **Smooth Transitions** between states
 - **Loading Skeletons** for better UX
@@ -110,13 +116,15 @@ src/
 ## 🛠️ **Quick Start**
 
 ### **Prerequisites**
+
 ```bash
-Node.js 18+ 
+Node.js 18+
 npm or yarn
 Firebase account (for auth & storage)
 ```
 
 ### **Installation**
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/lunar-frontend.git
@@ -134,6 +142,7 @@ npm run dev
 ```
 
 ### **Environment Setup**
+
 ```bash
 # .env.local
 VITE_FIREBASE_API_KEY=your_api_key
@@ -150,12 +159,14 @@ VITE_API_BASE_URL=http://localhost:5000/api
 ## 📱 **Responsive Showcase**
 
 ### **Desktop Experience**
+
 - **Resizable Sidebar** for navigation
 - **Full-width Audio Player** with all controls
 - **Multi-column Layouts** for content discovery
 - **Keyboard Shortcuts** for power users
 
-### **Mobile Experience**  
+### **Mobile Experience**
+
 - **Floating Navigation Menu** with smooth animations
 - **Swipe Gestures** for intuitive control
 - **Optimized Touch Targets** for better usability
@@ -166,9 +177,10 @@ VITE_API_BASE_URL=http://localhost:5000/api
 ## 🎨 **Design System**
 
 ### **Color Palette**
+
 ```css
 🖤 Primary: #000000 (Pure Black)
-🔘 Secondary: #18181B (Zinc-900) 
+🔘 Secondary: #18181B (Zinc-900)
 ⚪ Accent: #FFFFFF (Pure White)
 🟢 Success: #10B981 (Emerald-500)
 🔴 Error: #EF4444 (Red-500)
@@ -176,12 +188,15 @@ VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
 ### **Typography**
+
 - **Inter** - Primary UI font for clarity
 - **Poppins** - Display font for headings
 - **Michroma** - Special accent font
 
 ### **Components**
+
 Built on **shadcn/ui** design system with custom theming:
+
 - Buttons, Inputs, Cards, Dialogs
 - Sliders, Tables, Tabs, Avatars
 - Scroll Areas, Resizable Panels
@@ -192,6 +207,7 @@ Built on **shadcn/ui** design system with custom theming:
 ## 🔄 **State Management**
 
 ### **Zustand Stores**
+
 ```javascript
 🎵 useMusicStore     # Music data & API calls
 🔊 usePlayStore      # Audio playback state
@@ -199,39 +215,11 @@ Built on **shadcn/ui** design system with custom theming:
 ```
 
 ### **Key Features**
+
 - **Persistent State** across sessions
 - **Optimistic Updates** for better UX
 - **Error Handling** with toast notifications
 - **Loading States** for all async operations
-
----
-
-## 🚀 **Performance Optimizations**
-
-### **Build Optimizations**
-- **Code Splitting** with React.lazy
-- **Tree Shaking** for minimal bundle size
-- **Image Optimization** with modern formats
-- **Lazy Loading** for images and routes
-
-### **Runtime Optimizations**
-- **Memoization** of expensive components
-- **Virtual Scrolling** for large lists
-- **Debounced Search** to reduce API calls
-- **Service Worker** for offline functionality
-
----
-
-## 📊 **Key Metrics**
-
-```
-🚀 Performance Score: 95+
-📱 Mobile Friendly: 100%
-♿ Accessibility: AA Compliant
-🔒 Security: A+ Rating
-⚡ Load Time: <2s
-📦 Bundle Size: <500KB (gzipped)
-```
 
 ---
 
@@ -240,6 +228,7 @@ Built on **shadcn/ui** design system with custom theming:
 We welcome contributions! Here's how you can help:
 
 ### **Development Process**
+
 ```bash
 # 1. Fork the repository
 # 2. Create your feature branch
@@ -255,6 +244,7 @@ git push origin feature/amazing-feature
 ```
 
 ### **Code Standards**
+
 - **ESLint** configuration for consistent code style
 - **Prettier** for automatic code formatting
 - **Conventional Commits** for clear history
@@ -272,7 +262,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 - **shadcn/ui** for the beautiful component library
 - **Lucide React** for the stunning icon set
-- **Framer Motion** for smooth animations
 - **Firebase** for robust backend services
 - **Vercel** for seamless deployment
 
@@ -280,11 +269,11 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 <div align="center">
 
-**Built with ❤️ by [Your Name](https://github.com/yourusername)**
+**Built with ❤️ by [Harshit Parmar](https://github.com/Harshit-Parmar555/)**
 
-*If you found this project helpful, please give it a ⭐*
+_If you found this project helpful, please give it a ⭐_
 
-[🌐 Website](#) • [📧 Email](mailto:your.email@example.com) • [🐦 Twitter](#) • [💼 LinkedIn](#)
+[🌐 Website](https://harshitparmar.xyz) • [📧 Email](mailto:harshitxworks@gmail.com) • [🐦 Twitter](https://x.com/harshitxcodes) • [💼 LinkedIn](https://www.linkedin.com/in/harshit-parmar-47253b282)
 
 </div>
 
@@ -293,32 +282,25 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 📸 **Screenshots**
 
 ### 🏠 **Home Dashboard**
-*Coming soon - Upload your screenshot here*
+
+_Coming soon - 
 
 ### 🔍 **Search & Discovery**
-*Coming soon - Upload your screenshot here*
+
+_Coming soon - 
 
 ### 🎵 **Album View**
-*Coming soon - Upload your screenshot here*
+
+_Coming soon - 
 
 ### 📱 **Mobile Experience**
-*Coming soon - Upload your screenshot here*
+
+_Coming soon - 
 
 ### 👑 **Admin Dashboard**
-*Coming soon - Upload your screenshot here*
+
+_Coming soon - 
 
 ---
 
-## 🔮 **Roadmap**
-
-- [ ] 🎧 **Podcast Support** - Expand beyond music
-- [ ] 🤖 **AI Recommendations** - Machine learning powered suggestions
-- [ ] 🎤 **Social Features** - Share playlists and follow friends
-- [ ] 📊 **Advanced Analytics** - Detailed listening insights
-- [ ] 🌍 **Internationalization** - Multi-language support
-- [ ] ⬇️ **Offline Mode** - Download for offline listening
-- [ ] 🎮 **Gamification** - Achievement system and rewards
-
----
-
-*Made with 🌙 and lots of ☕*
+_Made with 🌙 and lots of ☕_
