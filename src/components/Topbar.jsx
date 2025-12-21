@@ -4,9 +4,26 @@ import { Button } from "./ui/button";
 import useAuthStore from "@/stores/useAuthStore";
 import Lunar from "@/assets/lunar.png";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
-  const { isAdmin, logout, user } = useAuthStore();
+  const { isAdmin, logout, user, signup } = useAuthStore();
+  const navigate = useNavigate();
+  const handleSignUp = async () => {
+    try {
+      await signup();
+    } catch (error) {
+      console.log("Signup error: ", error);
+    }
+  };
   const handleLogout = async () => {
     try {
       await logout();
@@ -20,7 +37,7 @@ const Topbar = () => {
       className="flex items-center justify-between p-4 sticky top-0 bg-transparent
       z-10
       border-b border-zinc-800
-
+      px-4
     "
     >
       <div className="flex gap-2 items-center text-2xl">
@@ -29,7 +46,7 @@ const Topbar = () => {
         </div>
         <h1 className="michroma text-[16px] ">Lunar</h1>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-8">
         {isAdmin && (
           <Link
             to={"/admin"}
@@ -40,17 +57,35 @@ const Topbar = () => {
           </Link>
         )}
 
-        <Avatar>
-          <AvatarImage src={user?.profile} alt="User Profile" />
-          <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
-        </Avatar>
+        {user && (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage
+                  className="cursor-pointer"
+                  src={user?.profile}
+                  alt="User Profile"
+                />
+                <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="cursor-pointer">
+              <DropdownMenuLabel onClick={() => navigate("/profile")}>
+                My Account
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel onClick={handleLogout}>
+                Logout
+              </DropdownMenuLabel>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
 
-        <Button
-          onClick={handleLogout}
-          className="bg-transparent text-red-600 rounded-sm"
-        >
-          <LogOut />
-        </Button>
+        {!user && (
+          <Button variant="outline" onClick={handleSignUp}>
+            SignUp
+          </Button>
+        )}
       </div>
     </div>
   );

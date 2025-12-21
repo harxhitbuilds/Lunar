@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-// pages
-import Land from "./pages/auth/Land";
+
 import HomePage from "./pages/home/HomePage";
 import AlbumPage from "./pages/albums/AlbumPage";
 import AdminPage from "./pages/admin/AdminPage";
 import Search from "./pages/search/Search";
 import Playlists from "./pages/playlists/Playlists";
+import Profile from "./pages/profile/ProfilePage";
 // layouts
 import MainLayout from "./layouts/MainLayout";
 // stores
@@ -33,26 +33,13 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/signup"
-          element={
-            <PublicRoute>
-              <Land />
-            </PublicRoute>
-          }
-        />
         <Route path="/admin" element={<AdminPage />} />
-        <Route
-          element={
-            <ProtectedRoute>
-              <MainLayout />
-            </ProtectedRoute>
-          }
-        >
+        <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/albums/:id" element={<AlbumPage />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/playlist" element={<Playlists/>}/>
+          <Route path="/playlist" element={<Playlists />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </>
