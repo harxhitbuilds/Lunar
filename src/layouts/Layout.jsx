@@ -1,4 +1,5 @@
-import { Home, Library, Loader, Menu, Search, X } from "lucide-react";
+import { HomeIcon, icons, Library, ListMusic, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion } from "motion/react";
 
 import { useState } from "react";
@@ -16,6 +17,7 @@ import {
 
 import AudioPlayer from "./components/AudioPlayer";
 import LeftSidebar from "./components/LeftSidebar";
+import { navItems } from "./components/LeftSidebar";
 import PlaybackControls from "./components/PlaybackControls";
 import useMobile from "./hooks/isMobile";
 
@@ -32,7 +34,7 @@ const MainLayout = () => {
   }
 
   return (
-    <div className="flex h-dvh flex-col overflow-hidden text-white">
+    <div className="flex flex-col overflow-hidden text-white">
       <SidebarProvider>
         <div className="flex min-h-0 flex-1 overflow-hidden">
           <Sidebar className="bg-background border-r border-zinc-800">
@@ -61,7 +63,7 @@ const MainLayout = () => {
       {isMobile && (
         <>
           <button
-            className="fixed right-4 bottom-40 z-50 cursor-pointer rounded-full bg-white p-4 text-black shadow-lg focus:outline-none"
+            className="fixed right-4 bottom-28 z-50 cursor-pointer rounded-full bg-white p-4 text-black shadow-lg focus:outline-none"
             onClick={() => setMenuOpen((prev) => !prev)}
           >
             {menuOpen ? (
@@ -82,11 +84,7 @@ const MainLayout = () => {
           >
             {menuOpen && (
               <>
-                {[
-                  { to: "/", icon: <Home size={20} /> },
-                  { to: "/search", icon: <Search size={20} /> },
-                  { to: "/playlist", icon: <Library size={20} /> },
-                ].map((item, index) => (
+                {navItems.map((item, index) => (
                   <motion.div
                     key={item.to}
                     className="rounded-full bg-zinc-800 p-3 hover:bg-emerald-900"
@@ -98,7 +96,7 @@ const MainLayout = () => {
                     transition={{ delay: 0.1 * index, duration: 0.2 }}
                   >
                     <Link to={item.to} onClick={() => setMenuOpen(false)}>
-                      {item.icon}
+                      <item.icon size={20} />
                     </Link>
                   </motion.div>
                 ))}

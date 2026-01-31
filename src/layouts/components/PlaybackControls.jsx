@@ -206,7 +206,7 @@ const PlaybackControls = () => {
       )}
       {isMobile && (
         <>
-          <footer className="flex h-24 flex-col items-center justify-center border-t border-zinc-800 bg-zinc-900 px-4">
+          <footer className="fixed bottom-0 left-0 z-50 h-20 w-full border-t border-zinc-900 bg-zinc-950 px-4 pb-12 sm:h-24">
             <div className="flex w-full items-center gap-2">
               <div className="text-xs text-zinc-400">
                 {formatTime(currentTime)}
