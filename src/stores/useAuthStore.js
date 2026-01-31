@@ -9,7 +9,7 @@ const useAuthStore = create((set) => ({
   signingIn: false,
   loggingOut: false,
   checkingAuth: true,
-  isAdmin : false,
+  isAdmin: false,
 
   signup: async () => {
     try {
@@ -18,7 +18,7 @@ const useAuthStore = create((set) => ({
       const user = result.user;
       const tokenId = await user.getIdToken();
       // signup the user in your backend
-      const response = await axiosInstance.post("/auth/signup", {tokenId });
+      const response = await axiosInstance.post("/auth/signup", { tokenId });
       toast.success(response.data.message || "Signup successful");
       set({ user: response.data.user, isAuthenticated: true });
     } catch (error) {
@@ -47,7 +47,7 @@ const useAuthStore = create((set) => ({
       set({
         user: response.data.user,
         isAuthenticated: true,
-        isAdmin : response.data.isAdmin
+        isAdmin: response.data.isAdmin
       });
     } catch (error) {
       console.error("Authentication check failed:", error);

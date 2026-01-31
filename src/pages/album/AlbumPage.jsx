@@ -1,9 +1,11 @@
+import { Clock, Pause, Play, Shuffle } from "lucide-react";
+
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useMusicStore } from "@/stores/useMusicStore";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { Button } from "@/components/ui/button";
-import { Play, Pause, Clock, Shuffle } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useMusicStore } from "@/stores/useMusicStore";
 import { usePlayStore } from "@/stores/usePlayStore";
 
 const formatDuration = (duration) => {
@@ -39,7 +41,7 @@ const AlbumPage = () => {
 
   const handlePlayAlbum = () => {
     const isCurrentAblumPlaying = currentAlbum?.songs.some(
-      (song) => song._id === currentSong?._id
+      (song) => song._id === currentSong?._id,
     );
     if (isCurrentAblumPlaying) {
       toggle();
@@ -55,21 +57,21 @@ const AlbumPage = () => {
         <div className="relative min-h-full">
           {/* bg gradient */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="pointer-events-none absolute inset-0"
             aria-hidden="true"
           />
 
           {/* Content */}
           <div className="relative z-10">
-            <div className="flex p-6 gap-6 pb-8">
+            <div className="flex gap-6 p-6 pb-8">
               <img
                 src={currentAlbum?.coverImage}
                 alt={currentAlbum?.title}
-                className="w-[240px] h-[240px] shadow-xl rounded"
+                className="h-[240px] w-[240px] rounded shadow-xl"
               />
               <div className="flex flex-col justify-end">
                 <p className="text-sm font-medium">Album</p>
-                <h1 className="text-7xl font-bold my-4">
+                <h1 className="my-4 text-7xl font-bold">
                   {currentAlbum?.title}
                 </h1>
                 <div className="flex items-center gap-2 text-sm text-zinc-100">
@@ -82,16 +84,15 @@ const AlbumPage = () => {
             </div>
 
             {/* play button */}
-            <div className="px-6 pb-4 flex items-center gap-6">
+            <div className="flex items-center gap-6 px-6 pb-4">
               <Button
                 onClick={handlePlayAlbum}
                 size="icon"
-                className="w-14 h-14 rounded-full bg-white hover:bg-zinc-400 
-                hover:scale-105 transition-all"
+                className="h-14 w-14 rounded-full bg-white transition-all hover:scale-105 hover:bg-zinc-400"
               >
                 {isPlaying &&
                 currentAlbum?.songs.some(
-                  (song) => song._id === currentSong?._id
+                  (song) => song._id === currentSong?._id,
                 ) ? (
                   <Pause className="h-7 w-7 text-black" />
                 ) : (
@@ -101,12 +102,10 @@ const AlbumPage = () => {
               <Button
                 onClick={handleShuffleAlbum}
                 size="icon"
-                className="w-14 h-14 rounded-full bg-white hover:bg-zinc-400 
-                hover:scale-105 transition-all"
+                className="h-14 w-14 rounded-full bg-white transition-all hover:scale-105 hover:bg-zinc-400"
               >
                 <Shuffle
-                  className="w-14 h-14 rounded-full hover:bg-zinc-400
-                hover:scale-105 transition-all"
+                  className="h-14 w-14 rounded-full transition-all hover:scale-105 hover:bg-zinc-400"
                   size="icon"
                 />
               </Button>
@@ -115,10 +114,7 @@ const AlbumPage = () => {
             {/* Table Section */}
             <div className="bg-black/20 backdrop-blur-sm">
               {/* table header */}
-              <div
-                className="grid grid-cols-[16px_4fr_2fr_1fr] gap-4 px-10 py-2 text-sm 
-            text-zinc-400 border-b border-white/5"
-              >
+              <div className="grid grid-cols-[16px_4fr_2fr_1fr] gap-4 border-b border-white/5 px-10 py-2 text-sm text-zinc-400">
                 <div>#</div>
                 <div>Title</div>
                 <div>Released Date</div>
@@ -139,9 +135,7 @@ const AlbumPage = () => {
                         onClick={() => {
                           handlePlaySong(index);
                         }}
-                        className={`grid grid-cols-[16px_4fr_2fr_1fr] gap-4 px-4 py-2 text-sm 
-                      text-zinc-400 hover:bg-white/5 rounded-md group cursor-pointer
-                      `}
+                        className={`group grid cursor-pointer grid-cols-[16px_4fr_2fr_1fr] gap-4 rounded-md px-4 py-2 text-sm text-zinc-400 hover:bg-white/5`}
                       >
                         <div className="flex items-center justify-center">
                           {isCurrentSong && isPlaying ? (
@@ -152,7 +146,7 @@ const AlbumPage = () => {
                             </span>
                           )}
                           {!currentSong && (
-                            <Play className="h-4 w-4 hidden group-hover:block" />
+                            <Play className="hidden h-4 w-4 group-hover:block" />
                           )}
                         </div>
 

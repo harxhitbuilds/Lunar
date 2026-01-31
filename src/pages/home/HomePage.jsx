@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import Topbar from "@/components/Topbar";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useAuthStore from "@/stores/useAuthStore";
 import { useMusicStore } from "@/stores/useMusicStore";
 import { usePlayStore } from "@/stores/usePlayStore";
-import SectionGrid from "./components/SectionGrid";
+
 import FeaturedSection from "./components/FeaturedSection";
+import SectionGrid from "./components/SectionGrid";
+import SectionGridAlbum from "./components/SectionGridAlbum";
+import SectionGridPlaylist from "./components/SectionGridPlaylist";
 
 const HomePage = () => {
   const {
@@ -15,11 +18,16 @@ const HomePage = () => {
     isLoading,
     featuredSongs,
     fetchGetMadeForYouSongs,
+    featuredAlbums,
     madeForYouSongs,
+    fetchFeaturedAlbums,
+    featuredPlaylists,
+    fetchFeaturedPlaylists,
   } = useMusicStore();
   const { initializeQueue } = usePlayStore();
   const { user } = useAuthStore();
   const [greeting, setGreeting] = useState("Good Morning");
+  const [tagline, settagline] = useState("");
 
   const updateGreeting = () => {
     const currentHour = new Date().getHours();
@@ -42,7 +50,9 @@ const HomePage = () => {
     fetchFeaturedSongs();
     fetchTrendingSongs();
     fetchGetMadeForYouSongs();
-  }, [fetchFeaturedSongs, fetchTrendingSongs]);
+    fetchFeaturedAlbums();
+    fetchFeaturedPlaylists();
+  }, [fetchFeaturedSongs, fetchTrendingSongs, fetchFeaturedAlbums]);
 
   useEffect(() => {
     if (trendingSongs?.length > 0 && featuredSongs?.length > 0) {
@@ -52,24 +62,29 @@ const HomePage = () => {
   }, [initializeQueue, featuredSongs, trendingSongs]);
 
   return (
-    <main className="rounded-md overflow-hidden h-full bg-black">
-      <Topbar />
-      <ScrollArea className="h-[calc(100vh-180px)]">
-        <div className="p-4 sm:p-6">
-          <h1 className="text-xl sm:text-2xl font-bold mb-6">
-            {greeting}
-            {"  " + user?.username}
-          </h1>
-          <FeaturedSection />
-          <div className="space-y-8">
+    <main className="bg-background h-full overflow-hidden rounded-md">
+      <ScrollArea className="h-[calc(100vh-180px)] md:px-10">
+        <div className="flex flex-col p-4 sm:p-6">
+          <FeaturedSection title="Quick picks" />
+          <div>
             <SectionGrid
-              title="Trending"
+              title="Trending songs for you"
               songs={trendingSongs}
               isLoading={isLoading}
             />
+            <SectionGridAlbum
+              title="Featured albums for you"
+              albums={featuredAlbums}
+              isLoading={isLoading}
+            />
             <SectionGrid
-              title="Made for you "
+              title="Music for you"
               songs={madeForYouSongs}
+              isLoading={isLoading}
+            />
+            <SectionGridPlaylist
+              title="Some Playlists for You"
+              playlists={featuredPlaylists}
               isLoading={isLoading}
             />
           </div>

@@ -41,12 +41,12 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --animate-rippling: rippling var(--duration) ease-out;
   @keyframes rippling {
-  0% {
-    opacity: 1;
+    0% {
+      opacity: 1;
     }
-  100% {
-    transform: scale(2);
-    opacity: 0;
+    100% {
+      transform: scale(2);
+      opacity: 0;
     }
   }
 }
@@ -124,34 +124,27 @@
   * {
     @apply border-border outline-ring/50;
   }
-  
-  html, body {
+
+  html,
+  body {
     height: 100%;
     overflow: hidden;
   }
-  
+
   #root {
     height: 100dvh;
     overflow: hidden;
   }
-  
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
-.inter{
-  font-family: 'Inter', sans-serif;
-}
-
-.poppins{
-  font-family: 'Poppins', sans-serif;
-}
-
-.michroma{
-  font-family: 'Michroma', sans-serif;
+body {
+  font-family: "Inter", sans-serif;
 }

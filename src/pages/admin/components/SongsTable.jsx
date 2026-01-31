@@ -1,18 +1,19 @@
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableCell,
-  TableBody,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { useMusicStore } from "@/stores/useMusicStore";
 import { Trash2 } from "lucide-react";
 import { Calendar } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useMusicStore } from "@/stores/useMusicStore";
+
 const SongsTable = () => {
-  const { songs,deleteSong } = useMusicStore();
+  const { songs, deleteSong } = useMusicStore();
   return (
     <Table>
       <TableHeader>
@@ -45,11 +46,11 @@ const SongsTable = () => {
             </TableCell>
 
             <TableCell className="text-right">
-              <div className="flex gap-2 justify-end">
+              <div className="flex justify-end gap-2">
                 <Button
                   variant={"ghost"}
                   size={"sm"}
-                  className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                  className="text-red-400 hover:bg-red-400/10 hover:text-red-300"
                   onClick={() => deleteSong(song._id)}
                 >
                   <Trash2 className="size-4" />

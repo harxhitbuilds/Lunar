@@ -1,4 +1,4 @@
-import { Library } from "lucide-react";
+import { ListMusic } from "lucide-react";
 
 import {
   Card,
@@ -8,29 +8,29 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import AddAlbumDialog from "./AddAlbumDialog";
-import AlbumsTable from "./AlbumsTable";
+import AddPlaylistDialog from "./AddPlaylistDialog";
+import PlaylistsTable from "./PlaylistsTable";
 
-const AlbumsTabContent = () => {
+const PlaylistsTabContent = () => {
   return (
     <Card className="bg-zinc-950">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
             <CardTitle className="flex items-center gap-2">
-              <Library className="h-5 w-5 text-violet-500" />
-              Albums Library
+              <ListMusic className="h-5 w-5 text-emerald-500" />
+              Playlists Library
             </CardTitle>
-            <CardDescription>Manage your album collection</CardDescription>
+            <CardDescription>Manage your playlist collection</CardDescription>
           </div>
-          <AddAlbumDialog />
+          <AddPlaylistDialog />
         </div>
       </CardHeader>
 
       <CardContent>
-        <AlbumsTable />
+        <PlaylistsTable />
       </CardContent>
     </Card>
   );
 };
-export default AlbumsTabContent;
+export default PlaylistsTabContent;

@@ -5,6 +5,9 @@ import { toast } from "react-hot-toast";
 export const useMusicStore = create((set) => ({
   songs: [],
   albums: [],
+  playlists: [],
+  featuredPlaylists: [],
+  currentPlaylist: [],
   currentAlbum: null,
   featuredSongs: [],
   featuredAlbums: [],
@@ -14,6 +17,8 @@ export const useMusicStore = create((set) => ({
   stats: {},
   isLoadingAlbums: false,
   isLoadingCurrentAlbum: false,
+  isLoadingPlaylists: false,
+  isLoadingCurrentPlaylist: false,
   isLoading: false,
 
   error: null,
@@ -33,6 +38,20 @@ export const useMusicStore = create((set) => ({
     }
   },
 
+  fetchPlaylists: async () => {
+    set({ isLoadingPlaylists: true, error: null });
+    try {
+      const response = await axiosInstance.get("/playlists");
+      set({ playlists: response.data.playlists });
+    } catch (error) {
+      set({
+        error: error?.response?.data?.message || "Failed to fetch playlists",
+      });
+    } finally {
+      set({ isLoadingPlaylists: false });
+    }
+  },
+
   fetchAlbumById: async (albumId) => {
     set({ isLoadingCurrentAlbum: true, error: null });
     try {
@@ -42,6 +61,21 @@ export const useMusicStore = create((set) => ({
       set({ error: error?.response?.data?.message || "Failed to fetch album" });
     } finally {
       set({ isLoadingCurrentAlbum: false });
+    }
+  },
+
+  fetchPlaylistById: async (playlistId) => {
+    set({ isLoadingCurrentPlaylist: true, error: null });
+    try {
+      const response = await axiosInstance.get(`/playlists/${playlistId}`);
+      set({ currentPlaylist: response.data.playlist });
+    } catch (error) {
+      set({
+        error:
+          error?.response?.data?.message || "Failed to fetch playlist",
+      });
+    } finally {
+      set({ isLoadingCurrentPlaylist: false });
     }
   },
 
@@ -69,6 +103,22 @@ export const useMusicStore = create((set) => ({
       set({
         error:
           error?.response?.data?.message || "Failed to fetch featured albums",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  fetchFeaturedPlaylists: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axiosInstance.get("/playlists/featured");
+      set({ featuredPlaylists: response.data.playlists });
+    } catch (error) {
+      set({
+        error:
+          error?.response?.data?.message ||
+          "Failed to fetch featured playlists",
       });
     } finally {
       set({ isLoading: false });
@@ -152,6 +202,20 @@ export const useMusicStore = create((set) => ({
     }
   },
 
+  addPlaylist: async (formData) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axiosInstance.post("/admin/add-playlist", formData);
+      toast.success("Playlist uploaded successfully!");
+    } catch (error) {
+      set({
+        error: error?.response?.data?.message || "Failed to add playlist",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
   // delete
   deleteSong: async (songId) => {
     set({ isLoading: true, error: null });
@@ -177,6 +241,22 @@ export const useMusicStore = create((set) => ({
     } catch (error) {
       set({
         error: error?.response?.data?.message || "Failed to delete album",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  deletePlaylist: async (playlistId) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axiosInstance.delete(
+        `/admin/delete-playlist/${playlistId}`
+      );
+      toast.success("Playlist deleted successfully!");
+    } catch (error) {
+      set({
+        error: error?.response?.data?.message || "Failed to delete playlist",
       });
     } finally {
       set({ isLoading: false });

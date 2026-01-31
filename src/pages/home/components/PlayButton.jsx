@@ -1,6 +1,8 @@
+import { Pause, Play } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { usePlayStore } from "@/stores/usePlayStore";
-import { Play, Pause } from "lucide-react";
+
 const PlayButton = ({ song }) => {
   const { currentSong, isPlaying, setCurrentSong, toggle } = usePlayStore();
   const isCurrentSong = currentSong?._id === song._id;
@@ -14,12 +16,13 @@ const PlayButton = ({ song }) => {
   return (
     <Button
       onClick={handlePlay}
-      className=" bottom-3 right-2 bg-zinc-200 hover:bg-zinc-400 hover:scale-105 transition-all"
+      variant="outline"
+      className="right-2 bottom-3 cursor-pointer bg-transparent text-white"
     >
       {isCurrentSong && isPlaying ? (
-        <Pause className="size-3 text-black" />
+        <Pause className="size-3" />
       ) : (
-        <Play className="size-3 text-black" />
+        <Play className="size-3" />
       )}
     </Button>
   );

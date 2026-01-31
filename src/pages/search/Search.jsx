@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
-import { useMusicStore } from "@/stores/useMusicStore";
-import { usePlayStore } from "@/stores/usePlayStore";
-import useAuthStore from "@/stores/useAuthStore";
+import { Search as SearchIcon } from "lucide-react";
+
+import { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { Search as SearchIcon } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import useAuthStore from "@/stores/useAuthStore";
+import { useMusicStore } from "@/stores/useMusicStore";
+import { usePlayStore } from "@/stores/usePlayStore";
 
 const Search = () => {
   const [query, setquery] = useState("");
@@ -38,47 +39,46 @@ const Search = () => {
     setquery(e.target.value);
   };
   return (
-    <div className="mb-8 px-4 bg-black h-[100vh] overflow-y-auto">
-      <div className="sticky top-0 pb-4 z-20">
+    <div className="mb-8 h-[100vh] overflow-y-auto bg-black px-4">
+      <div className="sticky top-0 z-20 pb-4">
         <div className="p-8" />
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">
+        <h2 className="mb-4 text-center text-2xl font-bold sm:text-3xl">
           Looking for songs{user?.firstName ? `, ${user.firstName}` : ""}?
         </h2>
-        <div className="flex items-center gap-2 mb-4 relative max-w-md mx-auto">
+        <div className="relative mx-auto mb-4 flex max-w-md items-center gap-2">
           <Input
             type="text"
             value={query}
             onChange={handleInputChange}
             placeholder="What do you want to play?"
-            className="pl-10 pr-4 py-2 w-full text-white rounded-full"
+            className="w-full rounded-full py-2 pr-4 pl-10 text-white"
           />
           <SearchIcon className="absolute left-3 text-white" />
         </div>
       </div>
       {error && (
-        <div className="text-red-500 mb-4 text-lg text-center">{error}</div>
+        <div className="mb-4 text-center text-lg text-red-500">{error}</div>
       )}
-      <div className="w-full max-w-lg mx-auto">
-        <ScrollArea className="w-full relative">
+      <div className="mx-auto w-full max-w-lg">
+        <ScrollArea className="relative w-full">
           {query && searchResults?.length > 0 ? (
             <div className="flex flex-col gap-4">
               <div
                 key={searchResults[0]._id}
                 onClick={() => handleSongClick(searchResults[0], 0)}
-                className="flex items-center bg-zinc-800/50 rounded-md overflow-hidden
-                  hover:bg-blue-800/20 transition-colors cursor-pointer relative p-4 mt-4"
+                className="relative mt-4 flex cursor-pointer items-center overflow-hidden rounded-md bg-zinc-800/50 p-4 transition-colors hover:bg-blue-800/20"
                 style={{ height: "200px" }}
               >
                 <img
                   src={searchResults[0].coverImage}
                   alt={searchResults[0].title}
-                  className="w-40 h-40 object-cover flex-shrink-0"
+                  className="h-40 w-40 flex-shrink-0 object-cover"
                 />
                 <div className="flex-1 pl-6">
-                  <p className="font-bold text-xl truncate">
+                  <p className="truncate text-xl font-bold">
                     {searchResults[0].title}
                   </p>
-                  <p className="text-sm text-zinc-400 truncate">
+                  <p className="truncate text-sm text-zinc-400">
                     {searchResults[0].artist}
                   </p>
                 </div>
@@ -88,17 +88,16 @@ const Search = () => {
                 <div
                   key={song._id}
                   onClick={() => handleSongClick(song, index + 1)}
-                  className="flex items-center bg-zinc-800/50 rounded-md overflow-hidden
-                  hover:bg-zinc-700/50 transition-colors cursor-pointer relative p-2"
+                  className="relative flex cursor-pointer items-center overflow-hidden rounded-md bg-zinc-800/50 p-2 transition-colors hover:bg-zinc-700/50"
                 >
                   <img
                     src={song.coverImage}
                     alt={song.title}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-cover flex-shrink-0"
+                    className="h-16 w-16 flex-shrink-0 object-cover sm:h-20 sm:w-20"
                   />
                   <div className="flex-1 p-4">
-                    <p className="font-medium truncate">{song.title}</p>
-                    <p className="text-sm text-zinc-400 truncate">
+                    <p className="truncate font-medium">{song.title}</p>
+                    <p className="truncate text-sm text-zinc-400">
                       {song.artist}
                     </p>
                   </div>
@@ -106,26 +105,26 @@ const Search = () => {
               ))}
             </div>
           ) : !query && !isLoading ? (
-            <div className="flex flex-col gap-4 mt-10">
+            <div className="mt-10 flex flex-col gap-4">
               <div
-                className="flex items-center bg-zinc-800/50 rounded-md overflow-hidden relative p-4 mt-4 animate-pulse"
+                className="relative mt-4 flex animate-pulse items-center overflow-hidden rounded-md bg-zinc-800/50 p-4"
                 style={{ height: "200px" }}
               >
-                <div className="w-40 h-40 bg-zinc-800 flex-shrink-0" />
-                <div className="flex-1 pl-6 space-y-2">
-                  <div className="h-6 bg-zinc-800 rounded w-3/4" />
-                  <div className="h-4 bg-zinc-800 rounded w-1/2" />
+                <div className="h-40 w-40 flex-shrink-0 bg-zinc-800" />
+                <div className="flex-1 space-y-2 pl-6">
+                  <div className="h-6 w-3/4 rounded bg-zinc-800" />
+                  <div className="h-4 w-1/2 rounded bg-zinc-800" />
                 </div>
               </div>
               {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
-                  className="flex items-center bg-zinc-800/50 rounded-md overflow-hidden relative p-2 animate-pulse"
+                  className="relative flex animate-pulse items-center overflow-hidden rounded-md bg-zinc-800/50 p-2"
                 >
-                  <div className="w-16 h-16 bg-zinc-800 flex-shrink-0" />
-                  <div className="flex-1 p-4 space-y-2">
-                    <div className="h-4 bg-zinc-800 rounded w-3/4" />
-                    <div className="h-3 bg-zinc-800 rounded w-1/2" />
+                  <div className="h-16 w-16 flex-shrink-0 bg-zinc-800" />
+                  <div className="flex-1 space-y-2 p-4">
+                    <div className="h-4 w-3/4 rounded bg-zinc-800" />
+                    <div className="h-3 w-1/2 rounded bg-zinc-800" />
                   </div>
                 </div>
               ))}
@@ -133,19 +132,19 @@ const Search = () => {
           ) : (
             query &&
             !isLoading && (
-              <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+              <div className="flex h-full flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-2xl font-semibold text-white">
                   Song not found
                 </h2>
-                <p className="text-neutral-400 max-w-md">
+                <p className="max-w-md text-neutral-400">
                   Looks like this track got lost in the shuffle. Search for
                   something else.
                 </p>
               </div>
             )
           )}
-          <div className="absolute bottom-0 left-0 w-full h-16 pointer-events-none"></div>
-          <div className="absolute top-0 left-0 w-full h-16  pointer-events-none z-10"></div>
+          <div className="pointer-events-none absolute bottom-0 left-0 h-16 w-full"></div>
+          <div className="pointer-events-none absolute top-0 left-0 z-10 h-16 w-full"></div>
         </ScrollArea>
       </div>
     </div>

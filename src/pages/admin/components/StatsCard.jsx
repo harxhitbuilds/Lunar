@@ -2,10 +2,10 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const StatsCard = ({ bgColor, icon: Icon, iconColor, label, value }) => {
   return (
-    <Card className="bg-zinc-800/50 border-zinc-700/50 hover:bg-zinc-800/80 transition-colors">
+    <Card className="border-zinc-700/50 bg-zinc-800/50 transition-colors hover:bg-zinc-800/80">
       <CardContent className="">
         <div className="flex items-center gap-4">
-          <div className={`p-3 rounded-lg ${bgColor}`}>
+          <div className={`rounded-lg p-3 ${bgColor}`}>
             <Icon className={`size-6 ${iconColor}`} />
           </div>
           <div>

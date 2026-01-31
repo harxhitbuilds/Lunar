@@ -24,6 +24,27 @@ export const usePlayStore = create((set, get) => ({
     });
   },
 
+  playPlaylist: (songs, startIndex = 0) => {
+    if (songs.length === 0) return;
+    set({
+      queue: songs,
+      currentIndex: startIndex,
+      currentSong: songs[startIndex],
+      isPlaying: true
+    })
+  },
+
+  shufflePlaylist: (songs, startIndex = 0) => {
+    if (songs.length === 0) return;
+    const shuffledSongs = [...songs].sort(() => Math.random() - 0.5);
+    set({
+      queue: shuffledSongs,
+      currentIndex: startIndex,
+      currentSong: shuffledSongs[startIndex],
+      isPlaying: true
+    })
+  },
+
   shuffleAlbum: (songs, startIndex = 0) => {
     if (songs.length === 0) return;
     const shuffledSongs = [...songs].sort(() => Math.random() - 0.5);
@@ -79,4 +100,13 @@ export const usePlayStore = create((set, get) => ({
       set({ isPlaying: false });
     }
   },
+
+  playAll: (songs) => {
+    set({
+      queue: songs,
+      currentIndex: 0,
+      currentSong: songs[0] || null,
+      isPlaying: true
+    })
+  }
 }));

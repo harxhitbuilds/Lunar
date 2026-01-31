@@ -16,22 +16,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMusicStore } from "@/stores/useMusicStore";
 
-const AddAlbumDialog = () => {
-  const [albumDialogOpen, setAlbumDialogOpen] = useState(false);
+const AddPlaylistDialog = () => {
+  const [playlistDialogOpen, setPlaylistDialogOpen] = useState(false);
   const [files, setFiles] = useState({ image: null });
-  const [newAlbum, setNewAlbum] = useState({
+  const [newPlaylist, setNewPlaylist] = useState({
     title: "",
     artist: "",
   });
   const imageInputRef = useRef(null);
-  const { addAlbum, isLoading } = useMusicStore();
+  const { addPlaylist, isLoading } = useMusicStore();
 
   const handleSubmit = async () => {
-    if (!newAlbum.title.trim()) {
-      toast.error("Please enter a song title");
+    if (!newPlaylist.title.trim()) {
+      toast.error("Please enter a playlist title");
       return;
     }
-    if (!newAlbum.artist.trim()) {
+    if (!newPlaylist.artist.trim()) {
       toast.error("Please enter an artist name");
       return;
     }
@@ -41,33 +41,33 @@ const AddAlbumDialog = () => {
       if (files.image) {
         formData.append("coverImage", files.image);
       }
-      formData.append("title", newAlbum.title.trim());
-      formData.append("artist", newAlbum.artist.trim());
+      formData.append("title", newPlaylist.title.trim());
+      formData.append("artist", newPlaylist.artist.trim());
 
-      await addAlbum(formData);
+      await addPlaylist(formData);
 
-      // Reset form on success
       setFiles({ image: null });
-      setNewSong({ title: "", artist: "" });
-      setSongDialogOpen(false);
+      setNewPlaylist({ title: "", artist: "" });
+      setPlaylistDialogOpen(false);
     } catch (error) {
-      console.error("Error uploading song:", error);
+      console.error("Error uploading playlist:", error);
     }
   };
+
   return (
-    <Dialog open={albumDialogOpen} onOpenChange={setAlbumDialogOpen}>
+    <Dialog open={playlistDialogOpen} onOpenChange={setPlaylistDialogOpen}>
       <DialogTrigger asChild>
         <Button className="bg-emerald-500 text-black hover:bg-emerald-600">
           <Plus className="mr-2 h-4 w-4" />
-          Add Album
+          Add Playlist
         </Button>
       </DialogTrigger>
 
       <DialogContent className="max-h-[80vh] overflow-auto border-zinc-700 bg-zinc-900">
         <DialogHeader>
-          <DialogTitle>Add New Album</DialogTitle>
+          <DialogTitle>Add New Playlist</DialogTitle>
           <DialogDescription>
-            Add a new album to your music library
+            Add a new playlist to your music library
           </DialogDescription>
         </DialogHeader>
 
@@ -85,7 +85,6 @@ const AddAlbumDialog = () => {
             }
           />
 
-          {/* image upload area */}
           <div
             className="flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-zinc-700 p-6"
             onClick={() => imageInputRef.current?.click()}
@@ -114,13 +113,12 @@ const AddAlbumDialog = () => {
             </div>
           </div>
 
-          {/* other fields */}
           <div className="space-y-2">
             <label className="text-sm font-medium">Title</label>
             <Input
-              value={newAlbum.title}
+              value={newPlaylist.title}
               onChange={(e) =>
-                setNewAlbum({ ...newAlbum, title: e.target.value })
+                setNewPlaylist({ ...newPlaylist, title: e.target.value })
               }
               className="border-zinc-700 bg-zinc-800"
             />
@@ -129,9 +127,9 @@ const AddAlbumDialog = () => {
           <div className="space-y-2">
             <label className="text-sm font-medium">Artist</label>
             <Input
-              value={newAlbum.artist}
+              value={newPlaylist.artist}
               onChange={(e) =>
-                setNewAlbum({ ...newAlbum, artist: e.target.value })
+                setNewPlaylist({ ...newPlaylist, artist: e.target.value })
               }
               className="border-zinc-700 bg-zinc-800"
             />
@@ -141,17 +139,18 @@ const AddAlbumDialog = () => {
         <DialogFooter>
           <Button
             variant="outline"
-            onClick={() => setAlbumDialogOpen(false)}
+            onClick={() => setPlaylistDialogOpen(false)}
             disabled={isLoading}
           >
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={isLoading}>
-            {isLoading ? "Adding..." : "Add Album"}
+            {isLoading ? "Adding..." : "Add Playlist"}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 };
-export default AddAlbumDialog;
+
+export default AddPlaylistDialog;

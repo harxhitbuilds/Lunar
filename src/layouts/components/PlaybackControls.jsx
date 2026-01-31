@@ -1,19 +1,22 @@
-import { useRef, useEffect, useState } from "react";
-import { usePlayStore } from "@/stores/usePlayStore";
-import { Slider } from "@/components/ui/slider";
-import { Button } from "@/components/ui/button";
 import {
-  Shuffle,
-  SkipBack,
-  Play,
-  Pause,
-  SkipForward,
-  Repeat,
-  Mic2,
-  Volume1,
   Laptop2,
   ListMusic,
+  Mic2,
+  Pause,
+  Play,
+  Repeat,
+  Shuffle,
+  SkipBack,
+  SkipForward,
+  Volume1,
 } from "lucide-react";
+
+import { useEffect, useRef, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { usePlayStore } from "@/stores/usePlayStore";
+
 import useMobile from "../hooks/isMobile";
 
 const formatTime = (seconds) => {
@@ -62,21 +65,21 @@ const PlaybackControls = () => {
     <>
       {!isMobile && (
         <>
-          <footer className="h-20 sm:h-24 bg-zinc-950 border-t border-zinc-900 px-4">
-            <div className="flex justify-between items-center h-full max-w-[1800px] mx-auto">
-              <div className="hidden sm:flex items-center gap-4 min-w-[180px] w-[30%]">
+          <footer className="fixed bottom-0 left-0 z-50 h-20 w-full border-t border-zinc-900 bg-zinc-950 px-4 sm:h-24">
+            <div className="mx-auto flex h-full max-w-[1800px] items-center justify-between">
+              <div className="hidden w-[30%] min-w-[180px] items-center gap-4 sm:flex">
                 {currentSong && (
                   <>
                     <img
                       src={currentSong?.coverImage}
                       alt={currentSong?.title}
-                      className="w-14 h-14 object-cover rounded-md"
+                      className="h-14 w-14 rounded-md object-cover"
                     />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium truncate hover:underline cursor-pointer">
+                    <div className="min-w-0 flex-1">
+                      <div className="cursor-pointer truncate font-medium hover:underline">
                         {currentSong?.title}
                       </div>
-                      <div className="text-sm text-zinc-400 truncate hover:underline cursor-pointer">
+                      <div className="cursor-pointer truncate text-sm text-zinc-400 hover:underline">
                         {currentSong?.artist}
                       </div>
                     </div>
@@ -84,12 +87,12 @@ const PlaybackControls = () => {
                 )}
               </div>
 
-              <div className="flex flex-col items-center gap-2 flex-1 max-w-full sm:max-w-[45%]">
+              <div className="flex max-w-full flex-1 flex-col items-center gap-2 sm:max-w-[45%]">
                 <div className="flex items-center gap-4 sm:gap-6">
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hidden sm:inline-flex hover:text-white text-zinc-400"
+                    className="hidden text-zinc-400 hover:text-white sm:inline-flex"
                   >
                     <Shuffle className="h-4 w-4" />
                   </Button>
@@ -97,7 +100,7 @@ const PlaybackControls = () => {
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hover:text-white text-zinc-400"
+                    className="text-zinc-400 hover:text-white"
                     onClick={playPrevious}
                     disabled={!currentSong}
                   >
@@ -106,9 +109,10 @@ const PlaybackControls = () => {
 
                   <Button
                     size="icon"
-                    className="bg-white hover:bg-white/80 text-black rounded-full h-8 w-8"
+                    className="h-8 w-8 rounded-full p-4 text-white hover:bg-white/80"
                     onClick={toggle}
                     disabled={!currentSong}
+                    variant="outline"
                   >
                     {isPlaying ? (
                       <Pause className="h-5 w-5" />
@@ -119,7 +123,7 @@ const PlaybackControls = () => {
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hover:text-white text-zinc-400"
+                    className="text-zinc-400 hover:text-white"
                     onClick={playNext}
                     disabled={!currentSong}
                   >
@@ -128,13 +132,13 @@ const PlaybackControls = () => {
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hidden sm:inline-flex hover:text-white text-zinc-400"
+                    className="hidden text-zinc-400 hover:text-white sm:inline-flex"
                   >
                     <Repeat className="h-4 w-4" />
                   </Button>
                 </div>
 
-                <div className="hidden sm:flex items-center gap-2 w-full">
+                <div className="hidden w-full items-center gap-2 sm:flex">
                   <div className="text-xs text-zinc-400">
                     {formatTime(currentTime)}
                   </div>
@@ -150,25 +154,25 @@ const PlaybackControls = () => {
                   </div>
                 </div>
               </div>
-              <div className="hidden sm:flex items-center gap-4 min-w-[180px] w-[30%] justify-end">
+              <div className="hidden w-[30%] min-w-[180px] items-center justify-end gap-4 sm:flex">
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="hover:text-white text-zinc-400"
+                  className="text-zinc-400 hover:text-white"
                 >
                   <Mic2 className="h-4 w-4" />
                 </Button>
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="hover:text-white text-zinc-400"
+                  className="text-zinc-400 hover:text-white"
                 >
                   <ListMusic className="h-4 w-4" />
                 </Button>
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="hover:text-white text-zinc-400"
+                  className="text-zinc-400 hover:text-white"
                 >
                   <Laptop2 className="h-4 w-4" />
                 </Button>
@@ -177,7 +181,7 @@ const PlaybackControls = () => {
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hover:text-white text-zinc-400"
+                    className="text-zinc-400 hover:text-white"
                   >
                     <Volume1 className="h-4 w-4" />
                   </Button>
@@ -202,8 +206,8 @@ const PlaybackControls = () => {
       )}
       {isMobile && (
         <>
-          <footer className="h-24 bg-zinc-900 border-t border-zinc-800 px-4 flex flex-col justify-center items-center">
-            <div className="flex items-center gap-2 w-full">
+          <footer className="flex h-24 flex-col items-center justify-center border-t border-zinc-800 bg-zinc-900 px-4">
+            <div className="flex w-full items-center gap-2">
               <div className="text-xs text-zinc-400">
                 {formatTime(currentTime)}
               </div>
@@ -219,14 +223,14 @@ const PlaybackControls = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between w-full px-2 mt-4">
+            <div className="mt-4 flex w-full items-center justify-between px-2">
               <div className="flex items-center gap-4">
                 {currentSong && (
                   <div className="flex flex-col">
-                    <div className="text-sm font-medium text-white overflow-hidden text-ellipsis whitespace-nowrap max-w-[12rem]">
+                    <div className="max-w-[12rem] overflow-hidden text-sm font-medium text-ellipsis whitespace-nowrap text-white">
                       {currentSong.title}
                     </div>
-                    <div className="text-xs text-zinc-400 overflow-hidden text-ellipsis whitespace-nowrap max-w-[12rem]">
+                    <div className="max-w-[12rem] overflow-hidden text-xs text-ellipsis whitespace-nowrap text-zinc-400">
                       {currentSong.artist}
                     </div>
                   </div>
@@ -237,7 +241,7 @@ const PlaybackControls = () => {
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="hover:text-white text-zinc-400"
+                  className="text-zinc-400 hover:text-white"
                   onClick={playPrevious}
                   disabled={!currentSong}
                 >
@@ -246,7 +250,7 @@ const PlaybackControls = () => {
 
                 <Button
                   size="icon"
-                  className="bg-white hover:bg-white/80 text-black rounded-full h-10 w-10"
+                  className="h-10 w-10 rounded-full bg-white text-black hover:bg-white/80"
                   onClick={toggle}
                   disabled={!currentSong}
                 >
@@ -260,7 +264,7 @@ const PlaybackControls = () => {
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="hover:text-white text-zinc-400"
+                  className="text-zinc-400 hover:text-white"
                   onClick={playNext}
                   disabled={!currentSong}
                 >

@@ -1,5 +1,4 @@
-import { Trash2 } from "lucide-react";
-import { Music } from "lucide-react";
+import { Music, Trash2 } from "lucide-react";
 
 import { useEffect } from "react";
 
@@ -14,11 +13,11 @@ import {
 } from "@/components/ui/table";
 import { useMusicStore } from "@/stores/useMusicStore";
 
-const AlbumsTable = () => {
-  const { fetchAlbums, albums, deleteAlbum } = useMusicStore();
+const PlaylistsTable = () => {
+  const { fetchPlaylists, playlists, deletePlaylist } = useMusicStore();
   useEffect(() => {
-    fetchAlbums();
-  }, [fetchAlbums]);
+    fetchPlaylists();
+  }, [fetchPlaylists]);
 
   return (
     <Table>
@@ -32,21 +31,21 @@ const AlbumsTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {albums?.map((album) => (
-          <TableRow key={album._id} className="hover:bg-zinc-800/50">
+        {playlists?.map((playlist) => (
+          <TableRow key={playlist._id} className="hover:bg-zinc-800/50">
             <TableCell>
               <img
-                src={album.coverImage}
-                alt={album.title}
+                src={playlist.coverImage}
+                alt={playlist.title}
                 className="h-10 w-10 rounded object-cover"
               />
             </TableCell>
-            <TableCell className="font-medium">{album.title}</TableCell>
-            <TableCell>{album.artist}</TableCell>
+            <TableCell className="font-medium">{playlist.title}</TableCell>
+            <TableCell>{playlist.artist}</TableCell>
             <TableCell>
               <span className="inline-flex items-center gap-1 text-zinc-400">
                 <Music className="h-4 w-4" />
-                {album.songs.length} songs
+                {playlist.songs.length} songs
               </span>
             </TableCell>
             <TableCell className="text-right">
@@ -54,7 +53,7 @@ const AlbumsTable = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => deleteAlbum(album._id)}
+                  onClick={() => deletePlaylist(playlist._id)}
                   className="text-red-400 hover:bg-red-400/10 hover:text-red-300"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -67,4 +66,4 @@ const AlbumsTable = () => {
     </Table>
   );
 };
-export default AlbumsTable;
+export default PlaylistsTable;

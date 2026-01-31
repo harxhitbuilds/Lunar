@@ -1,25 +1,28 @@
+import { Plus, Upload } from "lucide-react";
+
+import { useEffect } from "react";
+import { useRef, useState } from "react";
+import { toast } from "react-hot-toast";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
-  DialogHeader,
-  DialogFooter,
   DialogDescription,
+  DialogFooter,
+  DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectItem,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Upload, Plus } from "lucide-react";
-import { useState, useRef } from "react";
 import { useMusicStore } from "@/stores/useMusicStore";
-import { toast } from "react-hot-toast";
 
 const AddSongDialog = () => {
   const [songDialogOpen, setSongDialogOpen] = useState(false);
@@ -29,12 +32,17 @@ const AddSongDialog = () => {
     artist: "",
     duration: "",
     album: "none",
+    playlists: [],
   });
-  const {albums}=useMusicStore();
+  const { albums, fetchPlaylists, playlists } = useMusicStore();
 
   const audioInputRef = useRef(null);
   const imageInputRef = useRef(null);
   const { uploadSong, isLoading } = useMusicStore();
+
+  useEffect(() => {
+    if (songDialogOpen) fetchPlaylists();
+  }, [songDialogOpen, fetchPlaylists]);
 
   const handleSubmit = async () => {
     // Validation
@@ -68,11 +76,21 @@ const AddSongDialog = () => {
         formData.append("albumId", newSong.album);
       }
 
+      newSong.playlists.forEach((playlistId) =>
+        formData.append("playlistIds", playlistId),
+      );
+
       await uploadSong(formData);
 
       // Reset form on success
       setFiles({ audio: null, image: null });
-      setNewSong({ title: "", artist: "", duration: "", album: "none" });
+      setNewSong({
+        title: "",
+        artist: "",
+        duration: "",
+        album: "none",
+        playlists: [],
+      });
       setSongDialogOpen(false);
     } catch (error) {
       console.error("Error uploading song:", error);
@@ -82,13 +100,13 @@ const AddSongDialog = () => {
   return (
     <Dialog open={songDialogOpen} onOpenChange={setSongDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-emerald-500 hover:bg-emerald-600 text-black">
+        <Button className="bg-emerald-500 text-black hover:bg-emerald-600">
           <Plus className="mr-2 h-4 w-4" />
           Add Song
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-zinc-900 border-zinc-700 max-h-[80vh] overflow-auto">
+      <DialogContent className="max-h-[80vh] overflow-auto border-zinc-700 bg-zinc-900">
         <DialogHeader>
           <DialogTitle>Add New Song</DialogTitle>
           <DialogDescription>
@@ -125,7 +143,7 @@ const AddSongDialog = () => {
 
           {/* image upload area */}
           <div
-            className="flex items-center justify-center p-6 border-2 border-dashed border-zinc-700 rounded-lg cursor-pointer"
+            className="flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-zinc-700 p-6"
             onClick={() => imageInputRef.current?.click()}
           >
             <div className="text-center">
@@ -140,10 +158,10 @@ const AddSongDialog = () => {
                 </div>
               ) : (
                 <>
-                  <div className="p-3 bg-zinc-800 rounded-full inline-block mb-2">
+                  <div className="mb-2 inline-block rounded-full bg-zinc-800 p-3">
                     <Upload className="h-6 w-6 text-zinc-400" />
                   </div>
-                  <div className="text-sm text-zinc-400 mb-2">Upload Image</div>
+                  <div className="mb-2 text-sm text-zinc-400">Upload Image</div>
                   <Button variant="outline" size="sm" className="text-xs">
                     Choose File
                   </Button>
@@ -176,7 +194,7 @@ const AddSongDialog = () => {
               onChange={(e) =>
                 setNewSong({ ...newSong, title: e.target.value })
               }
-              className="bg-zinc-800 border-zinc-700"
+              className="border-zinc-700 bg-zinc-800"
             />
           </div>
 
@@ -187,7 +205,7 @@ const AddSongDialog = () => {
               onChange={(e) =>
                 setNewSong({ ...newSong, artist: e.target.value })
               }
-              className="bg-zinc-800 border-zinc-700"
+              className="border-zinc-700 bg-zinc-800"
             />
           </div>
 
@@ -200,7 +218,7 @@ const AddSongDialog = () => {
               onChange={(e) =>
                 setNewSong({ ...newSong, duration: e.target.value || "0" })
               }
-              className="bg-zinc-800 border-zinc-700"
+              className="border-zinc-700 bg-zinc-800"
             />
           </div>
 
@@ -212,10 +230,10 @@ const AddSongDialog = () => {
                 setNewSong({ ...newSong, album: value })
               }
             >
-              <SelectTrigger className="bg-zinc-800 border-zinc-700">
+              <SelectTrigger className="border-zinc-700 bg-zinc-800">
                 <SelectValue placeholder="Select album" />
               </SelectTrigger>
-              <SelectContent className="bg-zinc-800 border-zinc-700">
+              <SelectContent className="border-zinc-700 bg-zinc-800">
                 <SelectItem value="none">No Album (Single)</SelectItem>
                 {albums.map((album) => (
                   <SelectItem key={album._id} value={album._id}>
@@ -224,6 +242,33 @@ const AddSongDialog = () => {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              Add to Playlists (Optional)
+            </label>
+            <div className="flex max-h-40 flex-col gap-2 overflow-y-auto rounded border border-zinc-700 bg-zinc-800 p-2">
+              {playlists.map((playlist) => (
+                <label key={playlist._id} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    value={playlist._id}
+                    checked={newSong.playlists.includes(playlist._id)}
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+                      setNewSong((prev) => ({
+                        ...prev,
+                        playlists: checked
+                          ? [...prev.playlists, playlist._id]
+                          : prev.playlists.filter((id) => id !== playlist._id),
+                      }));
+                    }}
+                  />
+                  <span>{playlist.title}</span>
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 

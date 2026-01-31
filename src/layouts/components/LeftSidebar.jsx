@@ -1,76 +1,92 @@
+import { HomeIcon, icons, Library, ListMusic, Search } from "lucide-react";
+
 import { useEffect } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Library, HomeIcon, Search } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+
 import PlaylistSkeleton from "@/components/skeletons/PlaylistSkeleton ";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
 import { useMusicStore } from "@/stores/useMusicStore";
-import { Link } from "react-router-dom";
+
+export const navItems = [
+  { to: "/", icon: HomeIcon, label: "Home" },
+  { to: "/albums", icon: Library, label: "Albums" },
+  { to: "/playlists", icon: ListMusic, label: "Playlists" },
+  { to: "/search", icon: Search, label: "Search" },
+];
 
 const LeftSidebar = () => {
   const { isLoadingAlbums, fetchAlbums, albums } = useMusicStore();
+  const location = useLocation();
 
   useEffect(() => {
     fetchAlbums();
   }, [fetchAlbums]);
 
   return (
-    <div className="h-full flex flex-col gap-2 pt-2">
-      <div className="p-4 border-b border-zinc-800">
-        <div className="space-y-2">
-          <Link
-            to={"/"}
-            className="w-full flex items-center justify-start hover:bg-zinc-900 p-2 rounded-md gap-4 py-3"
-          >
-            <HomeIcon className="size-5 ml-2" />
-            <span className="hidden md:inline ">Home</span>
-          </Link>
-          <Link
-            to={"/playlist"}
-            className="w-full flex items-center justify-start hover:bg-zinc-900 p-2 rounded-md gap-4 py-3"
-          >
-            <Library className="size-5 ml-2" />
-            <span className="hidden md:inline ">PlayLists</span>
-          </Link>
-          <Link
-            to={"/search"}
-            className="w-full flex items-center justify-start hover:bg-zinc-900 p-2 rounded-md gap-4 py-3"
-          >
-            <Search className="size-5 ml-2" />
-            <span className="hidden md:inline ">Search</span>
-          </Link>
-        </div>
-      </div>
-
-      <div className="flex-1 rounded-lg">
-        <ScrollArea className="h-[calc(100vh-300px)]">
-          <div className="space-y-2 p-2">
-            {isLoadingAlbums ? (
-              <PlaylistSkeleton />
-            ) : (
-              albums.map((album) => (
-                <Link
-                  to={`/albums/${album._id}`}
-                  key={album?._id}
-                  className="p-2 hover:bg-zinc-900 rounded-md flex items-center gap-3 group cursor-pointer"
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            {navItems.map((item) => (
+              <SidebarMenuItem key={item.to}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={location.pathname === item.to}
+                  tooltip={item.label}
+                  className="flex min-h-[48px] items-center gap-3 pl-5"
                 >
-                  <img
-                    src={album?.coverImage}
-                    alt="Playlist img"
-                    className="size-12 rounded-md flex-shrink-0 object-cover"
-                  />
+                  <Link to={item.to}>
+                    <item.icon className="!h-5 !w-5 shrink-0" />
+                    <span className="text-sm">{item.label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
 
-                  <div className="flex-1 min-w-0 hidden md:block">
-                    <p className="font-medium truncate">{album?.title}</p>
-                    <p className="text-sm text-zinc-400 truncate">
-                      Album • {album?.artist}
-                    </p>
-                  </div>
-                </Link>
-              ))
-            )}
-          </div>
-        </ScrollArea>
-      </div>
-    </div>
+      <SidebarGroup className="flex-1">
+        <SidebarGroupContent>
+          <ScrollArea className="h-[calc(100vh-300px)]">
+            <div className="space-y-2">
+              {isLoadingAlbums ? (
+                <PlaylistSkeleton />
+              ) : (
+                albums.map((album) => (
+                  <Link
+                    to={`/albums/${album._id}`}
+                    key={album?._id}
+                    className="group flex cursor-pointer items-center gap-3 rounded-md p-2 hover:bg-zinc-800"
+                  >
+                    <img
+                      src={album?.coverImage}
+                      alt="Playlist img"
+                      className="size-12 flex-shrink-0 rounded-md object-cover"
+                    />
+                    <div className="hidden min-w-0 flex-1 md:block">
+                      <p className="truncate font-medium">{album?.title}</p>
+                      <p className="truncate text-sm text-zinc-400">
+                        Album • {album?.artist}
+                      </p>
+                    </div>
+                  </Link>
+                ))
+              )}
+            </div>
+          </ScrollArea>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
   );
 };
+
 export default LeftSidebar;

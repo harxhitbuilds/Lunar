@@ -1,3 +1,5 @@
+import { Music } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -5,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Music } from "lucide-react";
-import SongsTable from "./SongsTable";
+
 import AddSongDialog from "./AddSongDialog";
+import SongsTable from "./SongsTable";
 
 const SongsTabContent = () => {
   return (
@@ -25,7 +27,9 @@ const SongsTabContent = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <SongsTable />
+        <div className="max-h-[420px] overflow-auto">
+          <SongsTable />
+        </div>
       </CardContent>
     </Card>
   );

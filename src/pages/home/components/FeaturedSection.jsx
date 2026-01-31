@@ -1,28 +1,35 @@
 import { useMusicStore } from "@/stores/useMusicStore";
 
 import PlayButton from "./PlayButton";
-const FeaturedSection = () => {
+
+const FeaturedSection = ({ title }) => {
   const { featuredSongs } = useMusicStore();
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      {featuredSongs?.map((song) => (
-        <div
-          key={song._id}
-          className="flex items-center rounded-md overflow-hidden
-         transition-colors group cursor-pointer relative pr-2"
-        >
-          <img
-            src={song.coverImage}
-            alt={song.title}
-            className="w-16 sm:w-14 h-16 sm:h-14 object-cover flex-shrink-0"
-          />
-          <div className="flex-1 p-4 min-w-0">
-            <p className="font-medium  truncate">{song.title}</p>
-            <p className="text-sm text-zinc-400 truncate">{song.artist}</p>
+    <div className="my-6 flex flex-col gap-4">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-3xl font-bold">{title}</h2>
+      </div>
+      <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {featuredSongs?.map((song) => (
+          <div
+            key={song._id}
+            className="group relative flex cursor-pointer items-center gap-2 overflow-hidden transition-colors"
+          >
+            <img
+              src={song.coverImage}
+              alt={song.title}
+              className="h-12 w-12 flex-shrink-0 rounded-xs object-cover"
+            />
+            <div className="min-w-0 flex-1 pl-4">
+              <p className="text-md truncate font-medium">{song.title}</p>
+              <p className="text-md truncate overflow-hidden whitespace-nowrap text-zinc-400">
+                {song.artist}
+              </p>
+            </div>
+            <PlayButton song={song} />
           </div>
-          <PlayButton song={song} />
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
