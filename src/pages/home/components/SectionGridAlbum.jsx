@@ -17,9 +17,10 @@ const SectionGridAlbum = ({ title, albums, isLoading }) => {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
         {albums?.map((album) => (
-          <div
+          <Link
             key={album._id}
             className="group cursor-pointer rounded-md p-4 transition-all hover:bg-zinc-950"
+            to={`albums/${album._id}`}
           >
             <div className="relative mb-4">
               <div className="aspect-square rounded-md shadow-lg">
@@ -36,7 +37,7 @@ const SectionGridAlbum = ({ title, albums, isLoading }) => {
                 <p className="test-sm truncate text-zinc-400">{album.artist}</p>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -17,9 +17,10 @@ const SectionGridPlaylist = ({ title, playlists, isLoading }) => {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
         {playlists?.map((playlist) => (
-          <div
+          <Link
             key={playlist._id}
             className="group cursor-pointer rounded-md p-4 transition-all hover:bg-zinc-950"
+            to={`playlist/${playlist._id}`}
           >
             <div className="relative mb-4">
               <div className="aspect-square rounded-md shadow-lg">
@@ -38,7 +39,7 @@ const SectionGridPlaylist = ({ title, playlists, isLoading }) => {
                 </p>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
