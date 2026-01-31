@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Lunar from "@/assets/lunar.png";
-import Topbar from "@/components/topbar";
+import Topbar from "@/components/Topbar";
 import {
   Sidebar,
   SidebarHeader,
