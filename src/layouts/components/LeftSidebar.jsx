@@ -23,12 +23,12 @@ export const navItems = [
 ];
 
 const LeftSidebar = () => {
-  const { isLoadingAlbums, fetchAlbums, albums } = useMusicStore();
+  const { isLoadingPlaylists, fetchPlaylists, playlists } = useMusicStore();
   const location = useLocation();
 
   useEffect(() => {
-    fetchAlbums();
-  }, [fetchAlbums]);
+    fetchPlaylists();
+  }, [fetchPlaylists]);
 
   return (
     <SidebarContent>
@@ -58,24 +58,24 @@ const LeftSidebar = () => {
         <SidebarGroupContent>
           <ScrollArea className="h-[calc(100vh-300px)]">
             <div className="space-y-2">
-              {isLoadingAlbums ? (
+              {isLoadingPlaylists ? (
                 <PlaylistSkeleton />
               ) : (
-                albums.map((album) => (
+                playlists.map((playlist) => (
                   <Link
-                    to={`/albums/${album._id}`}
-                    key={album?._id}
+                    to={`/playlist/${playlist._id}`}
+                    key={playlist?._id}
                     className="group flex cursor-pointer items-center gap-3 rounded-md p-2 hover:bg-zinc-800"
                   >
                     <img
-                      src={album?.coverImage}
+                      src={playlist?.coverImage}
                       alt="Playlist img"
                       className="size-12 flex-shrink-0 rounded-md object-cover"
                     />
                     <div className="hidden min-w-0 flex-1 md:block">
-                      <p className="truncate font-medium">{album?.title}</p>
+                      <p className="truncate font-medium">{playlist?.title}</p>
                       <p className="truncate text-sm text-zinc-400">
-                        Album • {album?.artist}
+                        Playlist • {playlist?.artist}
                       </p>
                     </div>
                   </Link>
