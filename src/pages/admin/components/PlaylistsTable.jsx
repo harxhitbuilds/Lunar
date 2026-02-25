@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/table";
 import { useMusicStore } from "@/stores/useMusicStore";
 
+import MangePlaylistSongsDialog from "./MangePlaylistSongs";
+
 const PlaylistsTable = () => {
   const { fetchPlaylists, playlists, deletePlaylist } = useMusicStore();
   useEffect(() => {
@@ -50,6 +52,7 @@ const PlaylistsTable = () => {
             </TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
+                <MangePlaylistSongsDialog playlist={playlist} />
                 <Button
                   variant="ghost"
                   size="sm"

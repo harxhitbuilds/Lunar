@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/table";
 import { useMusicStore } from "@/stores/useMusicStore";
 
+import ManageAlbumSongsDialog from "./ManageAlbumSongs";
+
 const AlbumsTable = () => {
   const { fetchAlbums, albums, deleteAlbum } = useMusicStore();
   useEffect(() => {
@@ -51,6 +53,7 @@ const AlbumsTable = () => {
             </TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
+                <ManageAlbumSongsDialog album={album} />
                 <Button
                   variant="ghost"
                   size="sm"

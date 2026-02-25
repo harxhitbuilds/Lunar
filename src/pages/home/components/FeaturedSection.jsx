@@ -1,9 +1,13 @@
+import FeaturedGridSkeleton from "@/components/skeletons/FeaturedGridSkeleton";
 import { useMusicStore } from "@/stores/useMusicStore";
 
 import PlayButton from "./PlayButton";
 
-const FeaturedSection = ({ title }) => {
+const FeaturedSection = ({ title, isLoading }) => {
   const { featuredSongs } = useMusicStore();
+  if (isLoading) {
+    return <FeaturedGridSkeleton />;
+  }
   return (
     <div className="my-6 flex flex-col gap-4">
       <div className="mb-4 flex items-center justify-between">

@@ -273,4 +273,60 @@ export const useMusicStore = create((set) => ({
       set({ isLoading: false });
     }
   },
+
+  addSongToPlaylist: async (playlistId, songId) => {
+    set({ isLoading: true, error: null });
+    try {
+      await axiosInstance.post(`/admin/add-song-to-playlist/${playlistId}/${songId}`);
+      toast.success("Song added to playlist successfully!");
+    } catch (error) {
+      set({
+        error: error?.response?.data?.message || "Failed to add song to playlist",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  removeSongFromPlaylist: async (playlistId, songId) => {
+    set({ isLoading: true, error: null });
+    try {
+      await axiosInstance.delete(`/admin/remove-song-from-playlist/${playlistId}/${songId}`);
+      toast.success("Song removed from playlist successfully!");
+    } catch (error) {
+      set({
+        error: error?.response?.data?.message || "Failed to remove song from playlist",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  addSongToAlbum: async (albumId, songId) => {
+    set({ isLoading: true, error: null });
+    try {
+      await axiosInstance.post(`/admin/add-song-to-album/${albumId}/${songId}`);
+      toast.success("Song added to album successfully!");
+    } catch (error) {
+      set({
+        error: error?.response?.data?.message || "Failed to add song to album",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  removeSongFromAlbum: async (albumId, songId) => {
+    set({ isLoading: true, error: null });
+    try {
+      await axiosInstance.delete(`/admin/remove-song-from-album/${albumId}/${songId}`);
+      toast.success("Song removed from album successfully!");
+    } catch (error) {
+      set({
+        error: error?.response?.data?.message || "Failed to remove song from album",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 }));

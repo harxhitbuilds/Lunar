@@ -65,7 +65,7 @@ const HomePage = () => {
     <main className="bg-background h-full overflow-hidden rounded-md">
       <ScrollArea className="h-[calc(100vh-180px)] md:px-10">
         <div className="flex flex-col p-4 sm:p-6">
-          <FeaturedSection title="Quick picks" />
+          <FeaturedSection title="Quick picks" isLoading={isLoading} />
           <div>
             <SectionGrid
               title="Trending songs for you"
